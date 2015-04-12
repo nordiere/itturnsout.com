@@ -1,0 +1,185 @@
+﻿
+$serif: Georgia, 'Palatino Linotype', serif;
+$sans: Tahoma, Verdana, sans-serif;
+$mono: 'Ubuntu Mono', Menlo, Consolas, 'DejaVu Sans Mono', Courier, monospace;
+
+/*
+Monospace font research results:
+Higher mark is better; first mark is Windows laptop, second iPhone; "-" means the font was not available. So "4-" for Ubuntu Mono means it looked awesome on Windows, and was not available on iPhone.
+	4- Ubuntu Mono
+	-4 Menlo
+	3- Consolas
+	3- DejaVu Sans Mono
+	2- Lucida Console
+	2- Bitstream Vera Sans Mono
+	-2 Courier
+	12 Courier, bold
+	12 Courier New
+	12 Courier New, bold
+	-- Andale Mono
+	-2 Monaco
+	-- Letter Gothic
+	-- PragmataPro
+*/
+
+/*Google recommended setting up font sizes like this, but using 16px as base.
+	I tried, but using 24px as base was much better for me, since I have decided to standardize on that size and things were wonky when I had a discrepancy between . */
+html {
+	font-size: 24px;
+	line-height: 1.5;
+}
+h1 {
+	font-size: 200%;
+}
+h2 {
+	font-size: 175%;
+}
+h3 {
+	font-size: 150%;
+}
+h4 {
+	font-size: 125%;
+}
+
+h1, h2, h3, h4 {
+	font-weight: normal;
+	line-height: 1.25;
+}
+h1 {
+	margin: 0;
+	margin-top: 0.5em;
+	margin-bottom: 0.25em;
+}
+h2, h3, h4 {
+	margin: 0;
+	margin-top: 0.75em;
+	margin-bottom: 0.5em;
+}
+p {
+	margin: 0;
+	margin-bottom: 0.5em;
+}
+
+ul {
+	list-style: square;
+	ul {
+		list-style: disc;
+		ul {
+			list-style: circle;
+		}
+	}
+}
+
+ol {
+	list-style: decimal;
+	ol {
+		list-style: lower-alpha;
+		ol {
+			list-style: lower-greek;
+		}
+	}
+}
+
+* {
+/* prevent shitty and buggy font size adjustments when changing iPhone orientation */
+	-webkit-text-size-adjust: 100%;
+}
+
+/* You can customize the background to look cool on the iPhone when over-scrolling up. It matches body background, and shows color only. Right now not doing this, but can do it if desired. */
+/*html {
+	background-color: yellow;
+}
+body {
+	background-color: blue;
+}*/
+
+a {
+	text-decoration: none;
+}
+a:hover,
+a:focus,
+a:active {
+	text-decoration: underline;
+}
+
+body {
+	margin: 0;
+}
+
+.content {
+	display: block;
+	max-width: 1100px;
+	margin: auto;
+	padding: 0;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
+header {
+	display: block;
+	background-color: #CCCCCC;
+	padding-bottom: 2px;
+}
+
+header a {
+	font-family: $serif;
+	color: #FFFFFF;
+}
+
+header a .logo {
+	font-family: Cambria, 'Segoe UI', Courier;
+	font-weight: bold;
+	color: #666666;
+}
+
+.tags a {
+	color: #FFFFFF;
+	background-color: #BBBBBB;
+	padding: 0.5em;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
+	margin: 0.25em;
+	display: inline-block;
+	line-height: 1;
+	border-radius: 0.5em;
+	/*TODO: check if we need cursor:pointer anywhere */
+}
+
+a.footnote-link {
+	font-family: $mono;
+	font-size: 0.625em;
+	vertical-align: top;
+	color: inherit;
+}
+a.footnote-link::before {
+	content: '[';
+	color: #555555;
+	vertical-align: top;
+}
+a.footnote-link::after {
+	content: ']';
+	color: #555555;
+	vertical-align: top;
+}
+
+* {
+	tab-size: 2; /* needed primarily for code sections, but I want to make it global. I mean has anyone wanted the tab to be 8 characters wide post-1979? */
+}
+
+code {
+	font-family: $mono;
+}
+
+.article-dateline {
+	color: #999999;
+	font-size: 60%;
+	text-align: left;
+	border-top: solid 1px #CCCCCC;
+	margin-bottom: 1.5em;
+	font-family: $mono;
+	time + time::before { /* This selector can be improved: generalized and clarified. */
+		content: ' &middot; ';
+	}
+}
+
+

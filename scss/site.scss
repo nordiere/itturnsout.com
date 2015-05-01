@@ -102,6 +102,10 @@ a:active {
 	text-decoration: underline;
 }
 
+summary {
+	cursor: pointer;
+}
+
 body {
 	margin: 0;
 }

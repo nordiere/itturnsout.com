@@ -204,3 +204,37 @@ table, tbody, tr , th, td{
 	padding: 0;
 	border: none;
 }
+
+pre {
+	font-size: 75%;
+}
+
+q {
+	font-style: italic;
+}
+q:before, q:after {
+	content:''; // I think it makes more sense to put quotation marks in manually
+}
+
+@function darken($percent) {
+	@return rgba(0, 0, 0, $percent/100);
+}
+
+aside {
+	display: block;
+	float: right;
+	max-width: 50%;
+	margin: 0;
+	margin-left: 3px;
+	margin-top: 5px;
+	padding: 0;
+	padding-left: 5px;
+	padding-right: 3px;
+	font-size: 75%;
+	border-left: solid 1px darken(20);
+}
+
+em {
+	font-style: italic;
+	// May want to get fancier with this
+}

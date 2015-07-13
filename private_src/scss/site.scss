@@ -22,8 +22,21 @@ Higher mark is better; first mark is Windows laptop, second iPhone; "-" means th
 	-- PragmataPro
 */
 
-/*Google recommended setting up font sizes like this, but using 16px as base.
-	I tried, but using 24px as base was much better for me, since I have decided to standardize on that size and things were wonky when I had a discrepancy between . */
+@function darken($percent) {
+	@return rgba(0, 0, 0, $percent/100);
+}
+
+@mixin centered() {
+	display: block;
+	max-width: 1100px;
+	margin: auto;
+	padding: 0;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
+// Google recommended setting up font sizes like this, but using 16px as base.
+// I tried, but using 24px as base was much better for me, since I have decided to standardize on that size and things were wonky when I had a discrepancy between.
 html {
 	font-size: 24px;
 	line-height: 1.5;
@@ -110,15 +123,6 @@ body {
 	margin: 0;
 }
 
-@mixin centered() {
-	display: block;
-	max-width: 1100px;
-	margin: auto;
-	padding: 0;
-	padding-left: 12px;
-	padding-right: 12px;
-}
-
 header {
 	display: block;
 	background-color: #CCCCCC;
@@ -145,17 +149,18 @@ div.main > article {
 	font-family: $serif;
 }
 
+
 .tags a {
 	color: #FFFFFF;
 	background-color: #BBBBBB;
 	padding: 0.5em;
-	padding-top: 0.25em;
-	padding-bottom: 0.25em;
+	padding-top: 0.20em; padding-bottom: 0.30em; // uneven spacing between the two because of font peculiarity
 	margin: 0.25em;
-	display: inline-block;
+	margin-top: 0.75em;
 	line-height: 1;
+	vertical-align: top;
+	display: inline-block;
 	border-radius: 0.5em;
-	/*TODO: check if we need cursor:pointer anywhere */
 }
 
 a.footnote-link {
@@ -176,7 +181,9 @@ a.footnote-link::after {
 }
 
 * {
-	tab-size: 2; /* needed primarily for code sections, but I want to make it global. I mean has anyone wanted the tab to be 8 characters wide post-1979? */
+	-moz-tab-size: 2;
+	tab-size: 2;
+	// needed primarily for code sections, but I want to make it global. I mean has anyone wanted the tab to be 8 characters wide post-1979?
 }
 
 code {
@@ -190,12 +197,64 @@ code {
 	border-top: solid 1px #CCCCCC;
 	margin-bottom: 1.5em;
 	font-family: $mono;
-	time + time::before { /* This selector can be improved: generalized and clarified. */
+
+	// This selector can be improved: generalized and clarified.
+	time + time::before {
 		content: ' · ';
 	}
+	time.set-in + time.set-in::before { // If there are multiple set-in dates, don't show the dot between them
+		content: '';
+	}
+
 }
 
-.comments {
+details.comments {
 	font-family: $sans;
+	font-size: 75%;
+	display: block;
+	margin-bottom: 1.5em;
+	margin-top: 1.5em;
+}
+details.comments summary {
+	color: #FFFFFF;
+	background-color: #BBBBBB;
+	display: block;
+	padding-left: 0.5em;
+	outline: none;
 }
 
+table, tbody, tr , th, td{
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+pre {
+	font-size: 75%;
+}
+
+q {
+	font-style: italic;
+}
+q:before, q:after {
+	content:''; // I think it makes more sense to put quotation marks in manually
+}
+
+aside {
+	display: block;
+	float: right;
+	max-width: 50%;
+	margin: 0;
+	margin-left: 3px;
+	margin-top: 5px;
+	padding: 0;
+	padding-left: 5px;
+	padding-right: 3px;
+	font-size: 75%;
+	border-left: solid 1px darken(20);
+}
+
+em {
+	font-style: italic;
+	// May want to get fancier with this
+}

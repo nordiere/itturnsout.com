@@ -35,8 +35,8 @@ Higher mark is better; first mark is Windows laptop, second iPhone; "-" means th
 	padding-right: 12px;
 }
 
-/*Google recommended setting up font sizes like this, but using 16px as base.
-	I tried, but using 24px as base was much better for me, since I have decided to standardize on that size and things were wonky when I had a discrepancy between . */
+// Google recommended setting up font sizes like this, but using 16px as base.
+// I tried, but using 24px as base was much better for me, since I have decided to standardize on that size and things were wonky when I had a discrepancy between.
 html {
 	font-size: 24px;
 	line-height: 1.5;
@@ -156,6 +156,7 @@ div.main > article {
 	padding: 0.5em;
 	padding-top: 0.20em; padding-bottom: 0.30em; // uneven spacing between the two because of font peculiarity
 	margin: 0.25em;
+	margin-top: 0.75em;
 	line-height: 1;
 	vertical-align: top;
 	display: inline-block;
@@ -180,7 +181,7 @@ a.footnote-link::after {
 }
 
 * {
-	tab-size: 2; /* needed primarily for code sections, but I want to make it global. I mean has anyone wanted the tab to be 8 characters wide post-1979? */
+	tab-size: 2; // needed primarily for code sections, but I want to make it global. I mean has anyone wanted the tab to be 8 characters wide post-1979?
 }
 
 code {
@@ -194,18 +195,22 @@ code {
 	border-top: solid 1px #CCCCCC;
 	margin-bottom: 1.5em;
 	font-family: $mono;
-	time + time::before { /* This selector can be improved: generalized and clarified. */
+	time + time::before { // This selector can be improved: generalized and clarified.
 		content: ' · ';
 	}
 }
 
-.comments {
+details.comments {
 	font-family: $sans;
-	margin-bottom: 1em;
+	font-size: 75%;
+	display: block;
+	margin-bottom: 1.5em;
+	margin-top: 1.5em;
 }
-.comments summary {
+details.comments summary {
 	color: #FFFFFF;
 	background-color: #BBBBBB;
+	display: block;
 	padding-left: 0.5em;
 	outline: none;
 }

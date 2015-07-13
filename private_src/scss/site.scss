@@ -22,6 +22,19 @@ Higher mark is better; first mark is Windows laptop, second iPhone; "-" means th
 	-- PragmataPro
 */
 
+@function darken($percent) {
+	@return rgba(0, 0, 0, $percent/100);
+}
+
+@mixin centered() {
+	display: block;
+	max-width: 1100px;
+	margin: auto;
+	padding: 0;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
 /*Google recommended setting up font sizes like this, but using 16px as base.
 	I tried, but using 24px as base was much better for me, since I have decided to standardize on that size and things were wonky when I had a discrepancy between . */
 html {
@@ -110,15 +123,6 @@ body {
 	margin: 0;
 }
 
-@mixin centered() {
-	display: block;
-	max-width: 1100px;
-	margin: auto;
-	padding: 0;
-	padding-left: 12px;
-	padding-right: 12px;
-}
-
 header {
 	display: block;
 	background-color: #CCCCCC;
@@ -145,17 +149,17 @@ div.main > article {
 	font-family: $serif;
 }
 
+
 .tags a {
 	color: #FFFFFF;
 	background-color: #BBBBBB;
 	padding: 0.5em;
-	padding-top: 0.25em;
-	padding-bottom: 0.25em;
+	padding-top: 0.20em; padding-bottom: 0.30em; // uneven spacing between the two because of font peculiarity
 	margin: 0.25em;
-	display: inline-block;
 	line-height: 1;
+	vertical-align: top;
+	display: inline-block;
 	border-radius: 0.5em;
-	/*TODO: check if we need cursor:pointer anywhere */
 }
 
 a.footnote-link {
@@ -197,6 +201,13 @@ code {
 
 .comments {
 	font-family: $sans;
+	margin-bottom: 1em;
+}
+.comments summary {
+	color: #FFFFFF;
+	background-color: #BBBBBB;
+	padding-left: 0.5em;
+	outline: none;
 }
 
 table, tbody, tr , th, td{
@@ -214,10 +225,6 @@ q {
 }
 q:before, q:after {
 	content:''; // I think it makes more sense to put quotation marks in manually
-}
-
-@function darken($percent) {
-	@return rgba(0, 0, 0, $percent/100);
 }
 
 aside {

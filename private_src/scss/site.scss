@@ -181,7 +181,9 @@ a.footnote-link::after {
 }
 
 * {
-	tab-size: 2; // needed primarily for code sections, but I want to make it global. I mean has anyone wanted the tab to be 8 characters wide post-1979?
+	-moz-tab-size: 2;
+	tab-size: 2;
+	// needed primarily for code sections, but I want to make it global. I mean has anyone wanted the tab to be 8 characters wide post-1979?
 }
 
 code {

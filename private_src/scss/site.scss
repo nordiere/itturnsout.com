@@ -197,9 +197,15 @@ code {
 	border-top: solid 1px #CCCCCC;
 	margin-bottom: 1.5em;
 	font-family: $mono;
-	time + time::before { // This selector can be improved: generalized and clarified.
+
+	// This selector can be improved: generalized and clarified.
+	time + time::before {
 		content: ' · ';
 	}
+	time.set-in + time.set-in::before { // If there are multiple set-in dates, don't show the dot between them
+		content: '';
+	}
+
 }
 
 details.comments {

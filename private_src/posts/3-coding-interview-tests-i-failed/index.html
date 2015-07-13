@@ -29,7 +29,7 @@
 <div class="article-dateline">
 	<time class="published" datetime="2015-07-13">published 2015-07-13</time>
 	<!--<time class="updated" datetime="">updated </time>-->
-	<time class="set-in" datetime="2000" datetime-AND="2012">set in 2000 and 2012</time>
+	<time class="set-in" datetime="2000">set in 2000</time><time class="set-in" datetime="2012"> and 2012</time>
 </div>
 
 <section><!-- intro -->
@@ -52,28 +52,30 @@
 	<p>The price I paid for interviewing with a genuine high-flying IT company was a typical tough programming interview that can sometimes feel like a hazing.</p>
 
 	<p>Recursion, often a very difficult concept for programming students, absolutely shines in binary tree traversals. They are literally textbook examples of recursion, right after factorials and Fibonacci numbers.  Just compare recursive and iterative algorithms from <a href="https://en.wikipedia.org/wiki/Tree_traversal">Wikipedia article on tree traversals</a>:</p>
-	<style>
-		#treeTraversalTable td:first-child pre {
-			padding-right: 5px;
-		}
-		#treeTraversalTable td:last-child pre {
-			padding-left: 5px;
-			border-left: solid 1px rgba(0, 0, 0, 0.2);
-		}
-		#treeTraversalTable td {
-			vertical-align: top;
-		}
-	</style>
-	<table id="treeTraversalTable">
-		<tr>
-			<td><pre><code>preorder(node)
+
+	<section>
+		<style scoped>
+			#treeTraversalTable td:first-child pre {
+				padding-right: 5px;
+			}
+			#treeTraversalTable td:last-child pre {
+				padding-left: 5px;
+				border-left: solid 1px rgba(0, 0, 0, 0.2);
+			}
+			#treeTraversalTable td {
+				vertical-align: top;
+			}
+		</style>
+		<table id="treeTraversalTable">
+			<tr>
+				<td><pre><code>preorder(node)
 	if node == null then return
 	visit(node)
 	preorder(node.left)
 	preorder(node.right)</code></pre>
-			</td>
-			<td>
-				<pre><code>iterativePreorder(node)
+				</td>
+				<td>
+					<pre><code>iterativePreorder(node)
 	parentStack = empty stack
 	while (not parentStack.isEmpty() or node ≠ null)
 		if (node ≠ null)
@@ -82,18 +84,18 @@
 			node = node.left
 		else
 			node = parentStack.pop()</code></pre>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<pre><code>inorder(node)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<pre><code>inorder(node)
 	if node == null then return
 	inorder(node.left)
 	visit(node)
 	inorder(node.right)</code></pre>
-			</td>
-			<td>
-				<pre><code>iterativeInorder(node)
+				</td>
+				<td>
+					<pre><code>iterativeInorder(node)
 	parentStack = empty stack
 	while (not parentStack.isEmpty() or node ≠ null)
 		if (node ≠ null)
@@ -103,18 +105,18 @@
 			node = parentStack.pop()
 			visit(node)
 			node = node.right</code></pre>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<pre><code>postorder(node)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<pre><code>postorder(node)
 	if node == null then return
 	postorder(node.left)
 	postorder(node.right)
 	visit(node)</code></pre>
-			</td>
-			<td>
-				<pre><code>iterativePostorder(node)
+				</td>
+				<td>
+					<pre><code>iterativePostorder(node)
 	parentStack = empty stack	
 	lastnodevisited = null 
 	while (not parentStack.isEmpty() or node ≠ null)
@@ -130,9 +132,10 @@
 				visit(peeknode)
 				lastnodevisited = parentStack.pop() 
 				node = null</code></pre>
-			</td>
-		</tr>
-	</table>
+				</td>
+			</tr>
+		</table>
+	</section>
 
 	<p>I was familiar with these algorithms before the interview. A professor hand-wrote them on the blackboard for a second-year computer science class. I marvelled at the contrast between succinct recursive algorithms and their unwieldy iterative counterparts: <q>"Wow, am I happy that I will never have to recreate this ugliness from scratch."</q></p>
 

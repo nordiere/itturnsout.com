@@ -22,7 +22,7 @@
 @ printf "deleting directories that start with _\n"
 @ /cygwin64/bin/find ../../public_html -type d -name "_*" | xargs rm -rf
 @ printf "deleting files that start with _\n"
-@ /cygwin64/bin/find ../../public_html -type f -name "_*" | xargs rm
+@ /cygwin64/bin/find ../../public_html -type f -name "_*" | xargs rm -f
 
 @ cd ../../generator
 

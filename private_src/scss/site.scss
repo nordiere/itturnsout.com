@@ -38,20 +38,20 @@ Higher mark is better; first mark is Windows laptop, second iPhone; "-" means th
 // Google recommended setting up font sizes like this, but using 16px as base.
 // I tried, but using 24px as base was much better for me, since I have decided to standardize on that size and things were wonky when I had a discrepancy between.
 html {
-	font-size: 24px;
+	font-size: 22px;
 	line-height: 1.5;
 }
 h1 {
 	font-size: 200%;
 }
 h2 {
-	font-size: 175%;
+	font-size: 145%;
 }
 h3 {
-	font-size: 150%;
+	font-size: 130%;
 }
 h4 {
-	font-size: 125%;
+	font-size: 115%;
 }
 
 h1, h2, h3, h4 {
@@ -127,6 +127,8 @@ header {
 	display: block;
 	background-color: #CCCCCC;
 	padding-bottom: 2px;
+	line-height: 1.75;
+	font-size: 137.5%;
 }
 
 header a {

@@ -53,8 +53,18 @@
 
 	<p>Recursion, often a very difficult concept for programming students, absolutely shines in binary tree traversals. They are literally textbook examples of recursion, right after factorials and Fibonacci numbers.  Just compare recursive and iterative algorithms from <a href="https://en.wikipedia.org/wiki/Tree_traversal">Wikipedia article on tree traversals</a>:</p>
 
-	<section>
+	<section style="overflow">
 		<style scoped>
+			figure {
+				overflow: auto;
+				margin: 0;
+			}
+			figcaption {
+				font-style: italic;
+				font-size: 80%;
+				text-align: center;
+				margin-bottom: 2ex;
+			}
 			#treeTraversalTable td:first-child pre {
 				padding-right: 5px;
 			}
@@ -66,6 +76,7 @@
 				vertical-align: top;
 			}
 		</style>
+		<figure>
 		<table id="treeTraversalTable">
 			<tr>
 				<td><pre><code>preorder(node)
@@ -135,6 +146,8 @@
 				</td>
 			</tr>
 		</table>
+		</figure>
+		<figcaption>Binary tree traversal algorithms - recursive and iterative</figcaption>
 	</section>
 
 	<p>I was familiar with these algorithms before the interview. A professor hand-wrote them on the blackboard for a second-year computer science class. I marvelled at the contrast between succinct recursive algorithms and their unwieldy iterative counterparts: <q>"Wow, am I happy that I will never have to recreate this ugliness from scratch."</q></p>

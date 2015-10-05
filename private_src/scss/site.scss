@@ -152,6 +152,10 @@ div.main > article {
 }
 
 
+.tags {
+	display: none; // We don't want to show this until we have more articles.
+}
+
 .tags a {
 	color: #FFFFFF;
 	background-color: #BBBBBB;

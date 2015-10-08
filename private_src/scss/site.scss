@@ -48,10 +48,10 @@ h2 {
 	font-size: 145%;
 }
 h3 {
-	font-size: 120%;
+	font-size: 125%;
 }
 h4 {
-	font-size: 110%;
+	font-size: 115%;
 	font-style: italic;
 }
 
@@ -92,6 +92,27 @@ ol {
 			list-style: lower-greek;
 		}
 	}
+}
+
+blockquote {
+	margin-right: 0;
+	margin-left: 1ex;
+	margin-bottom: 1ex;
+	margin-top: 1ex;
+	border: solid 1px darken(15);
+	border-right: none;
+	border-left: solid 1ex darken(15);
+	padding: 1ex;
+	padding-left: 1.5ex;
+	padding-right: 0;
+	font-style: italic;
+}
+
+figure {
+	text-align: center;
+}
+figcaption {
+	font-style: italic;
 }
 
 * {

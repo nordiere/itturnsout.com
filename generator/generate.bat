@@ -6,8 +6,9 @@
 @ call compass compile
 @ printf "\n"
 
-@ printf "copying favicon\n\n"
+@ printf "copying root\n\n"
 @ cp ../private_src/favicon.ico ../public_html
+@ cp ../private_src/index.html ../public_html
 
 @ printf "copying posts\n"
 @ cd ../private_src/posts

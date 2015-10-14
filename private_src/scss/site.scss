@@ -28,7 +28,7 @@ Higher mark is better; first mark is Windows laptop, second iPhone; "-" means th
 
 @mixin centered() {
 	display: block;
-	max-width: 1100px;
+	max-width: 800px;
 	margin: auto;
 	padding: 0;
 	padding-left: 12px;
@@ -38,20 +38,21 @@ Higher mark is better; first mark is Windows laptop, second iPhone; "-" means th
 // Google recommended setting up font sizes like this, but using 16px as base.
 // I tried, but using 24px as base was much better for me, since I have decided to standardize on that size and things were wonky when I had a discrepancy between.
 html {
-	font-size: 24px;
+	font-size: 20px;
 	line-height: 1.5;
 }
 h1 {
 	font-size: 200%;
 }
 h2 {
-	font-size: 175%;
+	font-size: 145%;
 }
 h3 {
-	font-size: 150%;
+	font-size: 125%;
 }
 h4 {
-	font-size: 125%;
+	font-size: 115%;
+	font-style: italic;
 }
 
 h1, h2, h3, h4 {
@@ -93,6 +94,27 @@ ol {
 	}
 }
 
+blockquote {
+	margin-right: 0;
+	margin-left: 1ex;
+	margin-bottom: 1ex;
+	margin-top: 1ex;
+	border: solid 1px darken(15);
+	border-right: none;
+	border-left: solid 1ex darken(15);
+	padding: 1ex;
+	padding-left: 1.5ex;
+	padding-right: 0;
+	font-style: italic;
+}
+
+figure {
+	text-align: center;
+}
+figcaption {
+	font-style: italic;
+}
+
 * {
 /* prevent shitty and buggy font size adjustments when changing iPhone orientation */
 	-webkit-text-size-adjust: 100%;
@@ -127,6 +149,8 @@ header {
 	display: block;
 	background-color: #CCCCCC;
 	padding-bottom: 2px;
+	line-height: 1.75;
+	font-size: 137.5%;
 }
 
 header a {
@@ -150,6 +174,10 @@ div.main > article {
 }
 
 
+.tags {
+	display: none; // We don't want to show this until we have more articles.
+}
+
 .tags a {
 	color: #FFFFFF;
 	background-color: #BBBBBB;
@@ -161,6 +189,11 @@ div.main > article {
 	vertical-align: top;
 	display: inline-block;
 	border-radius: 0.5em;
+}
+
+.endline {
+	text-align: right;
+	padding-right: 1ex;
 }
 
 a.footnote-link {
@@ -184,6 +217,10 @@ a.footnote-link::after {
 	-moz-tab-size: 2;
 	tab-size: 2;
 	// needed primarily for code sections, but I want to make it global. I mean has anyone wanted the tab to be 8 characters wide post-1979?
+}
+
+pre {
+	text-align: left;
 }
 
 code {
@@ -220,6 +257,7 @@ details.comments summary {
 	background-color: #BBBBBB;
 	display: block;
 	padding-left: 0.5em;
+	padding-bottom: 3px; // just makes it look normal
 	outline: none;
 }
 

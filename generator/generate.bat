@@ -9,6 +9,7 @@
 @ printf "copying root\n\n"
 @ cp ../private_src/favicon.ico ../public_html
 @ cp ../private_src/index.html ../public_html
+@ cp ../private_src/twitter.svg ../public_html
 
 @ printf "copying posts\n"
 @ cd ../private_src/posts

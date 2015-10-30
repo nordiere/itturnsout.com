@@ -1,0 +1,410 @@
+8.8. Function Scope and Closures
+As described in Chapter 4, the body of a JavaScript function executes in a local scope that differs from the
+global scope. This section explains these and related scoping issues, including closures. [*]
+[*] This section covers advanced material that you may want to skip on your first reading.
+8.8.1. Lexical Scoping
+Functions in JavaScript are lexically rather than dynamically scoped. This means that they run in the scope in
+which they are defined, not the scope from which they are executed. When a function is defined, the current
+scope chain is saved and becomes part of the internal state of the function. At the top level, the scope chain
+simply consists of the global object, and lexical scoping is not particularly relevant. When you define a nested
+function, however, the scope chain includes the containing function. This means that nested functions can
+access all of the arguments and local variables of the containing function.
+Note that although the scope chain is fixed when a function is defined, the properties defined in that scope
+chain are not fixed. The scope chain is "live," and a function has access to whatever bindings are current when
+it is invoked.
+Part I: Core JavaScript 123
+Part I: Core JavaScript 123
+8.8.2. The Call Object
+When the JavaScript interpreter invokes a function, it first sets the scope to the scope chain that was in effect
+when the function was defined. Next, it adds a new object, known as the call object (the ECMAScript
+specification uses the term activation object) to the front of the scope chain. The call object is initialized with
+a property named arguments that refers to the Arguments object for the function. Named parameters of the
+function are added to the call object next. Any local variables declared with the var statement are also
+defined within this object. Since this call object is at the head of the scope chain, local variables, function
+parameters, and the Arguments object are all in scope within the function. This also means that they hide any
+properties with the same name that are further up the scope chain, of course.
+Note that unlike arguments, this is a keyword, not a property in the call object.
+8.8.3. The Call Object as a Namespace
+It is sometimes useful to define a function simply to create a call object that acts as a temporary namespace in
+which you can define variables and create properties without corrupting the global namespace. Suppose, for
+example, you have a file of JavaScript code that you want to use in a number of different JavaScript programs
+(or, for client-side JavaScript, on a number of different web pages). Assume that this code, like most code,
+defines variables to store the intermediate results of its computation. The problem is that since this code will
+be used in many different programs, you don't know whether the variables it creates will conflict with
+variables used by the programs that import it.
+The solution, of course, is to put the code into a function and then invoke the function. This way, variables are
+defined in the call object of the function:
+function init() {
+// Code goes here.
+// Any variables declared become properties of the call
+// object instead of cluttering up the global namespace.
+}
+init(); // But don't forget to invoke the function!
+The code adds only a single property to the global namespace: the property "init", which refers to the function.
+If defining even a single property is too much, you can define and invoke an anonymous function in a single
+expression. The code for this JavaScript idiom looks like this:
+(function() { // This function has no name.
+// Code goes here.
+// Any variables declared become properties of the call
+// object instead of cluttering up the global namespace.
+})(); // end the function literal and invoke it now.
+Note that the parentheses around the function literal are required by JavaScript syntax.
+124 Part I: Core JavaScript
+124 Part I: Core JavaScript
+8.8.4. Nested Functions as Closures
+The facts that JavaScript allows nested functions, allows functions to be used as data, and uses lexical scoping
+interact to create surprising and powerful effects. To begin exploring this, consider a function g defined
+within a function f. When f is invoked, the scope chain consists of the call object for that invocation of f
+followed by the global object. g is defined within f, so this scope chain is saved as part of the definition of g.
+When g is invoked, the scope chain includes three objects: its own call object, the call object of f, and the
+global object.
+Nested functions are perfectly understandable when they are invoked in the same lexical scope in which they
+are defined. For example, the following code does not do anything particularly surprising:
+var x = "global";
+function f() {
+var x = "local";
+function g() { alert(x); }
+g();
+}
+f(); // Calling this function displays "local"
+In JavaScript, however, functions are data just like any other value, so they can be returned from functions,
+assigned to object properties, stored in arrays, and so on. This does not cause anything particularly surprising
+either, except when nested functions are involved. Consider the following code, which includes a function that
+returns a nested function. Each time it is called, it returns a function. The JavaScript code of the returned
+function is always the same, but the scope in which it is created differs slightly on each invocation because the
+values of the arguments to the outer function differ on each invocation. (That is, there is a different call object
+on the scope chain for each invocation of the outer function.) If you save the returned functions in an array
+and then invoke each one, you'll see that each returns a different value. Since each function consists of
+identical JavaScript code, and each is invoked from exactly the same scope, the only factor that could be
+causing the differing return values is the scope in which the functions were defined:
+// This function returns a function each time it is called
+// The scope in which the function is defined differs for each call
+function makefunc(x) {
+return function() { return x; }
+}
+// Call makefunc() several times, and save the results in an array:
+var a = [makefunc(0), makefunc(1), makefunc(2)];
+// Now call these functions and display their values.
+// Although the body of each function is the same, the scope is
+// different, and each call returns a different value:
+alert(a[0]()); // Displays 0
+alert(a[1]()); // Displays 1
+alert(a[2]()); // Displays 2
+The results of this code are exactly what you would expect from a strict application of the lexical scoping rule:
+a function is executed in the scope in which it was defined. The reason that these results are surprising,
+however, is that you expect local scopes to cease to exist when the function that defines them exits. This is, in
+fact, what normally happens. When a function is invoked, a call object is created for it and placed on the
+scope chain. When the function exits, the call object is removed from the scope chain. When no nested
+Part I: Core JavaScript 125
+Part I: Core JavaScript 125
+functions are involved, the scope chain is the only reference to the call object. When the object is removed
+from the chain, there are no more references to it, and it ends up being garbage collected.
+But nested functions change the picture. If a nested function is created, the definition of that function refers to
+the call objects because that call object is the top of the scope chain in which the function was defined. If the
+nested function is used only within the outer function, however, the only reference to the nested function is in
+the call object. When the outer function returns, the nested function refers to the call object, and the call object
+refers to nested function, but there are no other references to either one, and so both objects become available
+for garbage collection.
+Things are different if you save a reference to the nested function in the global scope. You do so by using the
+nested function as the return value of the outer function or by storing the nested function as the property of
+some other object. In this case, there is an external reference to the nested function, and the nested function
+retains its reference to the call object of the outer function. The upshot is that the call object for that one
+particular invocation of the outer function continues to live, and the names and values of the function
+arguments and local variables persist in this object. JavaScript code cannot directly access the call object in
+any way, but the properties it defines are part of the scope chain for any invocation of the nested function.
+(Note that if an outer function stores global references to two nested functions, these two nested functions
+share the same call object, and changes made by an invocation of one function are visible to invocations of the
+other function.)
+JavaScript functions are a combination of code to be executed and the scope in which to execute them. This
+combination of code and scope is known as a closure in the computer science literature. All JavaScript
+functions are closures. These closures are only interesting, however, in the case discussed above: when a
+nested function is exported outside the scope in which it is defined. When a nested function is used in this
+way, it is often explicitly called a closure.
+Closures are an interesting and powerful technique. Although they are not commonly used in day-to-day
+JavaScript programming, it is still worth working to understand them. If you understand closures, you
+understand the scope chain and function call objects, and can truly call yourself an advanced JavaScript
+programmer.
+8.8.4.1. Closure examples
+Occasionally you'll want to write a function that can remember a value across invocations. The value cannot
+be stored in a local variable because the call object does not persist across invocations. A global variable
+would work, but that pollutes the global namespace. In Section 8.6.3., I presented a function named
+uniqueInteger() that used a property of itself to store the persistent value. You can use a closure to take
+this a step further and create a persistent and private variable. Here's how to write a function without a
+closure:
+// Return a different integer each time we're called
+uniqueID = function() {
+if (!arguments.callee.id) arguments.callee.id = 0;
+return arguments.callee.id++;
+};
+The problem with this approach is that anyone can set uniqueID.id back to 0 and break the contract of the
+function that says that it never returns the same value twice. You can prevent that by storing the persistent
+value in a closure that only your function has access to:
+126 Part I: Core JavaScript
+126 Part I: Core JavaScript
+uniqueID = (function() { // The call object of this function holds our value
+var id = 0; // This is the private persistent value
+// The outer function returns a nested function that has access
+// to the persistent value. It is this nested function we're storing
+// in the variable uniqueID above.
+return function() { return id++; }; // Return and increment
+})(); // Invoke the outer function after defining it.
+Example 8-6 is a second closure example. It demonstrates that private persistent variables like the one used
+above can be shared by more than one function.
+Example 8-6. Private properties with closures
+// This function adds property accessor methods for a property with
+// the specified name to the object o. The methods are named get<name>
+// and set<name>. If a predicate function is supplied, the setter
+// method uses it to test its argument for validity before storing it.
+// If the predicate returns false, the setter method throws an exception.
+//
+// The unusual thing about this function is that the property value
+// that is manipulated by the getter and setter methods is not stored in
+// the object o. Instead, the value is stored only in a local variable
+// in this function. The getter and setter methods are also defined
+// locally to this function and therefore have access to this local variable.
+// Note that the value is private to the two accessor methods, and it cannot
+// be set or modified except through the setter.
+function makeProperty(o, name, predicate) {
+var value; // This is the property value
+// The setter method simply returns the value.
+o["get" + name] = function() { return value; };
+// The getter method stores the value or throws an exception if
+// the predicate rejects the value.
+o["set" + name] = function(v) {
+if (predicate && !predicate(v))
+throw "set" + name + ": invalid value " + v;
+else
+value = v;
+};
+}
+// The following code demonstrates the makeProperty() method.
+var o = {}; // Here is an empty object
+// Add property accessor methods getName and setName()
+// Ensure that only string values are allowed
+makeProperty(o, "Name", function(x) { return typeof x == "string"; });
+o.setName("Frank"); // Set the property value
+print(o.getName()); // Get the property value
+o.setName(0); // Try to set a value of the wrong type
+The most useful and least contrived example using closures that I am aware of is the breakpoint facility
+created by Steve Yen and published on http://trimpath.com as part of the TrimPath client-side framework. A
+breakpoint is a point in a function at which code execution stops and the programmer is given the opportunity
+to inspect the value of variables, evaluate expressions, call functions, and so on. Steve's breakpoint technique
+uses a closure to capture the current scope within a function (including local variables and function
+Part I: Core JavaScript 127
+Part I: Core JavaScript 127
+arguments) and combines this with the global eval() function to allow that scope to be inspected. eval()
+evaluates a string of JavaScript code and returns its result (you can read more about it in Part III). Here is a
+nested function that works as a self-inspecting closure:
+// Capture current scope and allow it to be inspected with eval()
+var inspector = function($) { return eval($); }
+This function uses the uncommon identifier $ as its argument name to reduce the possibility of naming
+conflicts with the scope it is intended to inspect.
+You can create a breakpoint within a function by passing this closure to a function like the one in Example
+8-7.
+Example 8-7. Breakpoints using closures
+// This function implements a breakpoint. It repeatedly prompts the user
+// for an expression, evaluates it with the supplied self-inspecting closure,
+// and displays the result. It is the closure that provides access to the
+// scope to be inspected, so each function must supply its own closure.
+//
+// Inspired by Steve Yen's breakpoint() function at
+// http://trimpath.com/project/wiki/TrimBreakpoint2
+function inspect(inspector, title) {
+var expression, result;
+// You can use a breakpoint to turn off subsequent breakpoints
+by
+// creating a property named "ignore" on this function.
+if ("ignore" in arguments.callee) return;
+while(true) {
+// Figure out how to prompt the user
+var message = "";
+// If we were given a title, display that first
+if (title) message = title + "\n";
+// If we've already evaluated an expression, display it and its value
+if (expression) message += "\n" + expression + " ==> " + result + "\n";
+else expression = "";
+// We always display at least a basic prompt:
+message += "Enter an expression to evaluate:";
+// Get the user's input, displaying our prompt and using the
+// last expression as the default value this time.
+expression = prompt(message, expression);
+// If the user didn't enter anything (or clicked Cancel),
+// they're done, and so we return, ending the breakpoint.
+if (!expression) return;
+// Otherwise, use the supplied closure to evaluate the expression
+// in the scope that is being inspected.
+// The result will be displayed on the next iteration.
+result = inspector(expression);
+}
+}
+Note that the inspect() function of Example 8-7 uses the Window.prompt() method to display text to
+the user and allow him to enter a string (see Window.prompt() in Part IV for further details).
+128 Part I: Core JavaScript
+128 Part I: Core JavaScript
+Here is a function for computing factorials that uses this breakpointing technique:
+function factorial(n) {
+// Create a closure for this function
+var inspector = function($) { return eval($); }
+inspect(inspector, "Entering factorial()");
+var result = 1;
+while(n > 1) {
+result = result * n;
+n--;
+inspect(inspector, "factorial() loop");
+}
+inspect(inspector, "Exiting factorial()");
+return result;
+}
+8.8.4.2. Closures and memory leaks in Internet Explorer
+Microsoft's Internet Explorer web browser uses a weak form of garbage collection for ActiveX objects and
+client-side DOM elements. These client-side objects are reference-counted and freed when their reference
+count reaches zero. This scheme fails when there are circular references, such as when a core JavaScript
+object refers to a document element and that document element has a property (such as an event handler) that
+refers back to the core JavaScript object.
+This kind of circular reference frequently occurs when closures are used with client-side programming in IE.
+When you use a closure, remember that the call object of the enclosing function, including all function
+arguments and local variables, will last as long as the closure does. If any of those function arguments or local
+variables refer to a client-side object, you may be creating a memory leak.
+A full discussion of this problem is beyond the scope of this book. See
+http://msdn.microsoft.com/library/en-us/IETechCol/dnwebgen/ie_leak_patterns.asp for details.
+8.9. The Function() Constructor
+As explained earlier, functions are usually defined using the function keyword, either in the form of a
+function definition statement or a function literal expression. Functions can also be defined with the
+Function() constructor. Using the Function() constructor is typically harder than using a function
+literal, and so this technique is not commonly used. Here is an example that creates a function with the
+Function() constructor:
+var f = new Function("x", "y", "return x*y;");
+This line of code creates a new function that is more or less equivalent to a function defined with the familiar
+syntax:
+Part I: Core JavaScript 129
+Part I: Core JavaScript 129
+function f(x, y) { return x*y; }
+The Function() constructor expects any number of string arguments. The last argument is the body of the
+function; it can contain arbitrary JavaScript statements, separated from each other by semicolons. All other
+arguments to the constructor are strings that specify the names of the parameters to the function being defined.
+If you are defining a function that takes no arguments, you simply pass a single stringthe function bodyto the
+constructor.
+Notice that the Function() constructor is not passed any argumen
+
+
+
+The Function() constructor parses the function body and creates a new function object each time
+it is called. If the call to the constructor appears within a loop or within a frequently called function,
+this process can be inefficient. By contrast, a function literal or nested function that appears within a
+loop or function is not recompiled each time it is encountered. Nor is a different function object
+created each time a function literal is encountered. (Although, as noted earlier, a new closure may be
+required to capture differences in the lexical scope in which the function is defined.)
+•
+A last, very important point about the Function() constructor is that the functions it creates do not
+use lexical scoping; instead, they are always compiled as if they were top-level functions, as the
+following code demonstrates:
+var y = "global";
+function constructFunction() {
+var y = "local";
+return new Function("return y"); // Does not capture the local scope!
+}
+// This line displays "global" because the function returned by the
+// Function() constructor does not use the local scope. Had a function
+// literal been used instead, this line would have displayed "local".
+alert(constructFunction()()); // Displays "global"
+
+
+
+ A common programming technique called data encapsulation
+makes properties private and allows read and write access to them only through special accessor methods.
+JavaScript can simulate this using closures (an advanced topic, covered in Section 8.8.), but to do so, the
+accessor methods must be stored on each object instance; they cannot be inherited from the prototype object.
+The following code illustrates how this is done. It implements an immutable Rectangle object whose width
+and height can never be changed and are available only through accessor methods:
+function ImmutableRectangle(w, h) {
+// This constructor does not store the width and height properties
+// in the object it initializes. Instead, it simply defines
+// accessor methods in the object. These methods are closures and
+// the width and height values are captured in their scope chains.
+this.getWidth = function( ) { return w; }
+this.getHeight = function( ) { return h; }
+}
+// Note that the class can have regular methods in the prototype object.
+ImmutableRectangle.prototype.area = function( ) {
+return this.getWidth( ) * this.getHeight( );
+};
+Douglas Crockford is generally credited 
+
+
+Functions that call other
+functions in the module must use their fully qualified name so that they work correctly even when invoked
+without having been imported. (An exception to this rule, involving closures, is discussed in Section 10.2.2.)
+
+
+10.2.2. Closures as Private Namespace and Scope
+Recall from Section 8.8. that a closure is a function plus the scope that was in effect when the function was
+defined. [*] By defining a function, therefore, you can use its local scope as a private namespace. Nested
+functions defined within the outer function have access to this private namespace. The advantages of this are
+twofold. First, since the private namespace is also the first object on the scope chain, functions in the
+namespace can refer to other functions and properties in the namespace without requiring a fully qualified
+name.
+[*] Closures are an advanced feature, and if you skipped over their discussion in Chapter 8,
+you should return to this section after you read about closures.
+The second advantage to using a function to define a private namespace has to do with the fact that it is truly
+private. There is no way to access the symbols defined within the function from outside the function. Those
+symbols become available only if the function that contains them exports them to an external, public
+namespace. What this means is that a module can choose to export only its public functions, leaving
+implementation details such as helper methods and variables locked up in the privacy of the closure.
+Example 10-4 helps to illustrate this point. It uses a closure to create a private namespace, and then exports its
+public methods to a public namespace.
+Example 10-4. Defining a private namespace with a closure
+// Create the namespace object. Error checking omitted here for brevity.
+var com;
+if (!com) com = {};
+Part I: Core JavaScript 167
+Part I: Core JavaScript 167
+if (!com.davidflanagan) com.davidflanagan = {};
+com.davidflanagan.Class = {};
+// Don't stick anything into the namespace directly.
+// Instead we define and invoke an anonymous function to create a closure
+// that serves as our private namespace. This function will export its
+// public symbols from the closure into the com.davidflanagan.Class object
+// Note that we use an unnamed function so we don't create any other
+// global symbols.
+(function( ) { // Begin anonymous function definition
+// Nested functions create symbols within the closure
+function define(data) { counter++; /* more code here */ }
+function provides(o, c) { /* code here */ }
+// Local variable are symbols within the closure.
+// This one will remain private within the closure
+var counter = 0;
+// This function can refer to the variable with a simple name
+// instead of having to qualify it with a namespace
+function getCounter( ) { return counter; }
+// Now that we've defined the properties we want in our private
+// closure, we can export the public ones to the public namespace
+// and leave the private ones hidden here.
+var ns = com.davidflanagan.Class;
+ns.define = define;
+ns.provides = provides;
+ns.getCounter = getCounter;
+})( ); // End anonymous function definition and invoke it
+
+
+// Or we can use a closure
+element.attachEvent("onmouseover", function( ) {
+// Invoke the handler as a method of element
+genericHandler.call(element, event);
+});
+The problem with the Level 0 API is that it doesn't allow multiple handler functions to be registered, and the
+problem with using closures is that they lead to memory leaks in IE. The next section has details.
+
+
+// Here we define a function that displays the next frame of the
+// animation. This function can't be an ordinary instance method because
+// setInterval( ) can only invoke functions, not methods. So we make
+// it a closure that includes a reference to the ImageLoop object
+this._displayNextFrame = function( ) {
+// First, increment the frame number. The modulo operator (%) means
+// that we loop from the last to the first frame
+loop.frameNumber = (loop.frameNumber+1)%loop.frames.length;
+// Update the src property of the image to the URL of the new frame
+loop.image.src = loop.frames[loop.frameNumber].src;
+};
+
+

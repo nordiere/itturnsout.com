@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>When JavaScript (books) had no closures ∴ it turns out</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="initial-scale=0.75" />
+	<meta name="description" content="The evolution in the way we use JavaScript is reflected in the changing way 'JavaScript: The Definitive Guide' wrote about closures over the years." />
+	<meta name="keywords" content="JavaScript, programming, closures, history, books" />
+	<link rel="stylesheet" href="//itturnsout.com/css/site.css" />
+	<script>
+		// Google Analytics
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-20475905-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+</head>
+<body>
+
+<header><a href="//itturnsout.com/"><span class="logo">∴</span> it turns out</a></header>
+<div class="main">
+
+<article>
+
+<h1>When JavaScript (books) had no closures</h1>
+
+<div class="article-dateline">
+	<time class="published" datetime="2015-10-30">published 2015-10-30</time>
+</div>
+
+<section><!-- intro -->
+	<p>JavaScript is a survivor among web technologies, 20 years old and as relevant as ever.</p>
+	<p>Over that time the way in which we use it has evolved greatly.  What started as tiny scripts that changed images on mouseover has given way to huge web apps that make many offline applications obsolete.</p>
+	<p>This evolution is evident even among the unchanged features of the language.  For example our treatment of closures has changed dramatically over the years, as can be seen in the way one book wrote about them.</p>
+</section>
+
+<section>
+	<h2>"JavaScript: The Definitive Guide"</h2>
+	<p>David Flanagan's <a href="http://www.amazon.com/dp/0596805527/">"JavaScript: The Definitive Guide"</a> is a rare example of an in-print JavaScript book that is almost as old as the language itself.  It has been in print non-stop since 1996, getting significant updates every few years.</p>
+	<p>It was indispensable in the days before Google and StackOverflow, and it remains one of the most influential JavaScript books.  Netscape's <a href="https://en.wikipedia.org/wiki/Rhino_(JavaScript_engine)">Rhino engine</a> got its name from The Definitive Guide's cover animal, not the other way around.</p>
+
+	<figure style="max-width:100%;height:auto;">
+		<img src="images/all-covers-960x345.jpg" srcset="images/all-covers-320x115.jpg 320w, images/all-covers-640x230.jpg 640w, images/all-covers-960x345.jpg 960w, images/all-covers-1920x690.jpg 1920w, images/all-covers-2560x920.jpg 2560w" sizes="100vw" style="width:100%;height:auto;" title="'The Definitive Guide' over the years" alt="'The Definitive Guide' over the years. Lined up in order are the editions from 1997, 2001, 2006, and 2011" />
+		<figcaption>"The Definitive Guide" over the years</figcaption>
+	</figure>
+</section>
+
+<section>
+	<h2>Closures</h2>
+	<p><a href="https://en.wikipedia.org/wiki/Closure_(computer_programming)">Closure</a> is a programming language construct that ensures that a function can always access the scope in which it was created.  It is an integral part of JavaScript, necessary since the start.  And it could never be changed without sacrificing backward compatibility.</p>
+	<p>This is an important point.  Of course older editions of the book do not cover features introduced in EcmaScript 5, and newer ones do not devote an entire section to <q>"Arrays in [Netscape] Navigator 2.0"</q>.  But closures have been the same since day one.  This makes them an excellent candidate for chronological comparison.</p>
+	<p>You would think that since closures never changed, neither did the book's treatment of them.  But in fact there was great change.</p>
+	<p>This isn't because the language changed.  It is because the way we use the language changed.</p>
+</section>
+
+<section>
+	<h2>Closures in The Definitive Guide</h2>
+	<p>With help from Toronto Public Library, I put together a timeline of closure coverage across various editions of Mr. Flanagan's book:</p>
+
+	<section>
+		<style scoped>
+			table#closure-content-overview {
+				width: 100%;
+			}
+			table#closure-content-overview th,
+			table#closure-content-overview td {
+				font-weight: normal;
+				vertical-align: top;
+			}
+			table#closure-content-overview tr th,
+			table#closure-content-overview tr td {
+				padding-bottom: 1ex;
+			}
+			table#closure-content-overview th {
+				padding-right: 2ex;
+			}
+		</style>
+		<table id="closure-content-overview">
+			<tr><th>1997</th><td>Not a word.</td></tr>
+			<tr><th>2002</th><td>Two sentences.<!-- (Followed by a full section dedicated to the "Function" constructor which is nowadays never used.) --></td></tr>
+			<tr><th>2006</th><td>A large section, shared with function scope.  It contains extensive examples of closures.</td></tr>
+			<tr><th>2011</th><td>A large section, dedicated to closures alone.  Many other parts of the book demonstrate programming techniques that make use of closures, referring back to this section.</td></tr>
+		</table>
+	</section>
+
+	<p>It is most striking to visually compare the index entries for closures across various editions:</p>
+	<section>
+		<style scoped>
+			table#covers-and-indexes {
+				width: 100%;
+			}
+			table#covers-and-indexes td:first-child {
+				width: 36%;
+			}
+			table#covers-and-indexes td:last-child {
+				width: 64%;
+			}
+			table#covers-and-indexes img {
+				width: 100%;
+				display: block;
+			}
+		</style>
+		<figure>
+			<table id="covers-and-indexes">
+				<tr>
+					<td><img src="images/cover-1997-240x320.jpg"   title="1997 cover of 'The Definitive Guide'" alt="1997 cover of 'The Definitive Guide'" srcset="images/cover-1997-240x320.jpg 240w, images/cover-1997-480x640.jpg 480w, images/cover-1997-720x960.jpg 720w, images/cover-1997-1440x1920.jpg 1440w, images/cover-1997-1920x2560.jpg 1920w" sizes="36vw" /></td>
+					<td><img src="images/index-1997-640x480.jpg" title="1997 index of 'The Definitive Guide'" alt="1997 index of 'The Definitive Guide'. Term 'closure' doesn't exist." srcset="index/index-1997-320x240.jpg 240w, index/index-1997-640x480.jpg 640w, index/index-1997-960x720.jpg 960w, index/index-1997-1920x1440.jpg 1920w, index/index-1997-2560x1920.jpg 2560w" sizes="64vw" /></td>
+				</tr>
+				<tr>
+					<td><img src="images/cover-2002-240x320.jpg"   title="2002 cover of 'The Definitive Guide'" alt="2002 cover of 'The Definitive Guide'" srcset="images/cover-2002-240x320.jpg 240w, images/cover-2002-480x640.jpg 480w, images/cover-2002-720x960.jpg 720w, images/cover-2002-1440x1920.jpg 1440w, images/cover-2002-1920x2560.jpg 1920w" sizes="36vw" /></td>
+					<td><img src="images/index-2002-640x480.jpg" title="2002 index of 'The Definitive Guide'" alt="2002 index of 'The Definitive Guide'. 'Closure' refers to one page." srcset="index/index-2002-320x240.jpg 240w, index/index-2002-640x480.jpg 640w, index/index-2002-960x720.jpg 960w, index/index-2002-1920x1440.jpg 1920w, index/index-2002-2560x1920.jpg 2560w" sizes="64vw" /></td>
+				</tr>
+				<tr>
+					<td><img src="images/cover-2006-240x320.jpg"   title="2006 cover of 'The Definitive Guide'" alt="2006 cover of 'The Definitive Guide'" srcset="images/cover-2006-240x320.jpg 240w, images/cover-2006-480x640.jpg 480w, images/cover-2006-720x960.jpg 720w, images/cover-2006-1440x1920.jpg 1440w, images/cover-2006-1920x2560.jpg 1920w" sizes="36vw" /></td>
+					<td><img src="images/index-2006-640x480.jpg" title="2006 index of 'The Definitive Guide'" alt="2006 index of 'The Definitive Guide'. 'Closures' have a 6-page section and 2 more references." srcset="index/index-2006-320x240.jpg 240w, index/index-2006-640x480.jpg 640w, index/index-2006-960x720.jpg 960w, index/index-2006-1920x1440.jpg 1920w, index/index-2006-2560x1920.jpg 2560w" sizes="64vw" /></td>
+				</tr>
+				<tr>
+					<td><img src="images/cover-2011-240x320.jpg"   title="2011 cover of 'The Definitive Guide'" alt="2011 cover of 'The Definitive Guide'" srcset="images/cover-2011-240x320.jpg 240w, images/cover-2011-480x640.jpg 480w, images/cover-2011-720x960.jpg 720w, images/cover-2011-1440x1920.jpg 1440w, images/cover-2011-1920x2560.jpg 1920w" sizes="36vw" /></td>
+					<td><img src="images/index-2011-640x480.jpg" title="2011 index of 'The Definitive Guide'" alt="2011 index of 'The Definitive Guide'. 'Closures' have a 6-page section and 7 more references." srcset="index/index-2011-320x240.jpg 240w, index/index-2011-640x480.jpg 640w, index/index-2011-960x720.jpg 960w, index/index-2011-1920x1440.jpg 1920w, index/index-2011-2560x1920.jpg 2560w" sizes="64vw" /></td>
+				</tr>
+			</table>
+			<figcaption>Closures in the index of "The Definitive Guide" over the years</figcaption>
+		</figure>
+	</section>
+</section>
+
+<section>
+	<h2>Why this is</h2>
+
+	<p>While closures never changed, their relevance did.  This is because the way we use JavaScript has changed.</p>
+
+	<p>If you just run simple onclick scripts, you never run into closures.  To run into them, you need a function that creates and returns another function.  This is a useful, but advanced programming technique.  You are unlikely to need it until you are writing a complex web app.  That's why questions about closures are popular in job interviews.  They are a good proxy for <q>"Have you programmed a large web app in JavaScript?"</q></p>
+
+	<p>The book's coverage of closures reflects the way our use of JavaScript has evolved:</p>
+	<ul>
+		<li><p>In 1997 nobody programmed large JavaScript web apps.</p></li>
+		<li><p>In 2002 only a handful did.  (I think Outlook Web Access for Internet Explorer 5, released in 1999 along with the necessary XMLHttpRequest technology, may have been the first true "Web 2.0" app.)</p></li>
+		<li><p>By 2006 early open source frameworks like Dojo and Prototype were popular, and jQuery was soon to follow.  JavaScript programming had grown up.</p></li>
+		<li><p>By 2011 everyone knew jQuery, and modern JavaScript MVC frameworks were arising.  Most JavaScript programming involved large web apps, which needed to be managed using techniques based on closures, like encapsulation and scoping.</p></li>
+	</ul>
+
+	<p>I hope Mr. Flanagan is working on the next edition.  Although I think his coverage of closures is already maxed out.</p>
+</section>
+
+<div class="endline">∴</div>
+
+<div class="tags">
+	<a href="#">JavaScript</a><a href="#">programming</a><a href="#">closures</a><a href="#">history</a><a href="#">books</a>
+</div>
+
+</article>
+
+<details class="comments">
+	<summary>comments on Disqus</summary>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		// CONFIGURATION VARIABLES
+		var disqus_shortname = 'itturnsoutcom';
+		var disqus_url = 'https://itturnsout.com/when-javascript-books-had-no-closures/';
+		var disqus_identifier = 'when-javascript-books-had-no-closures';
+		// DON'T EDIT BELOW THIS LINE
+		(function () {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>How dare you browse without JavaScript?  No <a href="https://disqus.com/?ref_noscript" rel="nofollow">Disqus</a> comments for you.</noscript>
+</details>
+
+</div>
+
+</body>
+</html>

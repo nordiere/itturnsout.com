@@ -1,0 +1,41 @@
+// This function returns a function each time it is called
+// The scope in which the function is defined differs for each call
+function makefunc(x) {
+return function( ) { return x; }
+}
+// Call makefunc( ) several times, and save the results in an array:
+var a = [makefunc(0), makefunc(1), makefunc(2)];
+// Now call these functions and display their values.
+11.4 Lexical Scoping and Nested Functions
+Functions in JavaScript are lexically rather than dynamically scoped. This means tha
+they run in the
+t much of an issue:
+of the function scope (with the call object
+In JavaScript 1.2 and later, however, functions can be defined anywhere, and tricky
+issu
+always executed in the scope of  f . Its scope chain includes three objects: its own
+object, the call object of  f( ) , and the global object. Nested functions are perfec
+understandable when they are invoked in the same lexical scope in which they are
+defined. For example, the following code does not do anything parti
+// Although the body of each function is the same, the scope is
+// different, and each call returns a different value:
+alert(a[0]( )); // Displays 0
+alert(a[1]( )); // Displays 1
+alert(a[2]( )); // Displays 2
+The results of this code may be surprising. Still, they are the results expected from a strict
+application of the lexical scoping rule: a function is executed in the scope in which it was
+defined. That scope includes the state of local variables and arguments. Even though
+local variables and function arguments are transient, their state is frozen and becomes
+part of the lexical scope of any functions defined while they are in effect. In order to
+make lexical scoping work with nested functions, a JavaScript implementation must use a
+closure, which can be thought of as a combination of a function definition and the scope
+chain that was in effect when the function was defined.
+11.5 The Function( ) Constructor and Function
+Literals
+As we saw in Chapter 7, there are two ways to define functions other than the basic
+functi
+) const s.
+You sh
+First, the  Function( ) constructor allows JavaScript code to be dynamically created and
+ompiled at runtime. Function literals, however, are a static part of program structure,
+st as  function statements are.

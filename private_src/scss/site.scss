@@ -263,10 +263,15 @@ details.comments summary {
 	outline: none;
 }
 
-table, tbody, tr , th, td{
+table, tbody, tr, th, td{
 	margin: 0;
 	padding: 0;
 	border: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 pre {

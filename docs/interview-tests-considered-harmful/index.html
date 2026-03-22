@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Interview Tests Considered Harmful ∴ it turns out</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="initial-scale=0.75" />
+	<meta name="description" content="Skill testing has always been a part of programming job interviews, but is of questionable value, and can be replaced by an Agile approach to hiring." />
+	<meta name="keywords" content="programming, interview, agile" />
+	<link rel="stylesheet" href="//itturnsout.com/css/site.css" />
+	<script>
+		// Google Analytics
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-20475905-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+</head>
+<body>
+
+<header><a href="//itturnsout.com/"><span class="logo">∴</span> it turns out</a></header>
+<div class="main">
+
+<article>
+
+<h1>Interview Tests Considered Harmful</h1>
+
+<div class="article-dateline">
+	<time class="published" datetime="2015-10-13">published 2015-10-13</time>
+</div>
+
+<section><!-- intro -->
+	<p>Coding tests in programming job interviews have come under a lot of criticism lately, most curtly in this tweet that went viral:</p>
+
+	<blockquote>
+		<p>Google: 90% of our engineers use the software you wrote (Homebrew), but you can't invert a binary tree on a whiteboard so fuck off.</p>
+		<footer>— <cite><a href="https://twitter.com/mxcl/status/608682016205344768">@mxcl Max Howell</a></cite></footer>
+	</blockquote>
+
+	<p>As a bit of a contrarian, I set out to write an article defending the practice of skill testing coders in job interviews.  I even took the unusual step of <a href="//itturnsout.com/3-coding-interview-tests-i-failed/">cataloguing all of the coding interviews I failed</a>, lest somebody accuse me of defending tests just because I happen to test well.</p>
+
+	<p>The working title of this article was "In defence of coding interview tests".  But I concluded that their position is indefensible.  In fact you can <strong>completely eliminate interview tests by adopting an agile methodology to hiring coders</strong>.</p>
+
+</section>
+
+<section>
+	<h2>Traditional Coding Tests</h2>
+	<p>The good, the bad, and the ugly.</p>
+	<p>By now most seem to agree that brain teasers and puzzles with little or no relation to programming (how many golf balls can you fit in a 747?) have proven useless.  I'll dismiss these as "the ugly", and instead look at two other kinds of interview tests that are still popular, the good and the bad.</p>
+
+	<section>
+		<h3>Easy Test Good</h3>
+		<p>A simple and quick coding test like <a href="https://en.wikipedia.org/wiki/Fizz_buzz#Other_uses">Fizz Buzz</a> still holds up to scrutiny.  Like it or not, it is an excellent screening tool:</p>
+		<ul>
+			<li><p>It is extremely cheap to run.</p>
+			<p>All it takes is a laptop and 5-10 minutes of time, including the discussion of the solution, which easily gets into important topics like maintainability, requirements gathering, programming styles, etc.</p></li>
+			<li><p>Its accuracy is good enough.</p>
+			<p>There are certainly those who pass Fizz Buzz, but would not be a good programming hire.  And perhaps there are those who fail it, but would.  But while I admit that I have no proof, I just can't shake the sense that Fizz Buzz is accurate enough considering how cheap it is.</p></li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>Hard Test Bad</h3>
+		<p>At the other extreme are the needlessly difficult tests, like the aforementioned inversion of a binary tree (<a href="https://en.wikipedia.org/wiki/Binary_heap">min-to-max</a>, not left-to-right) that was asked of Mr. Howell, or, to stick with binary trees, <a href="//itturnsout.com/3-coding-interview-tests-i-failed/#treeTraversalTable">iterative traversal in post-order</a> that was asked of me when I was a new grad.</p>
+		<p>It is no accident that both of these tests were administered on a whiteboard.  Whiteboard coding is more hazing than programming.  And even hazing is supposed to be an initiation ritual administered only after the candidate has already been accepted.</p>
+
+		<section>
+			<h4>The Myth of the brilliant algorithm</h4>
+			<p>The rationalization I heard for these tests is: <q>"They are looking for the person who will come up with the next big thing, and this person will be the kind of algorithmic genius unseen since Edsger Dijkstra"</q>.  Even if we assume that this brilliant mathematician would not falter in such a high-pressure situation, the fact remains that very few real businesses are founded on brilliant "middle out" algorithms.</p>
+			<figure>
+				<img src="middle-out-400x300.jpg" width="800" height="600" srcset="middle-out-400x300.jpg 400w, middle-out-800x600.jpg 800w" style="max-width:100%;height:auto;"
+					title="whiteboard diagram of the middle-out algorithm from HBO's Silicon Valley"
+					  alt="whiteboard diagram of the middle-out algorithm from HBO's Silicon Valley" />
+				<figcaption>very few businesses are founded on brilliant "middle out" algorithms</figcaption>
+			</figure>
+			<p>Google probably comes the closest, having succeeded by building a much better search algorithm.  But even there the real epiphany - that external links to a page are more relevant than its textual content - was distinctly non-mathematical.  As a coder I don't like to concede this, but: Brilliant code is overrated.</p>
+			<p>But good code is underrated.  Plenty of businesses are hindered and even ruined by bad code, and most aren't even aware of it happening.</p>
+			<p>Good code is rarely flashy.  It is maintainable, it is adaptable, it is readable, and in retrospect it looks like it was easy to make.  But it wasn't.  You just can't tell how well-made it is, because you don't have a badly-made alternative next to it for comparison.</p>
+		</section>
+
+	</section>
+</section>
+
+<section>
+	<h2>Modern Coding Tests</h2>
+
+	<p>In recent years many organizations big and small have greatly improved their programming tests, by making them look more like actual programming work:</p>
+
+	<ul>
+		<li><p>Featuring the kind of task that will be performed on the job.</p></li>
+		<li><p>Using the tools that will be used on the job.</p></li>
+		<li><p>Having the interviewer act like a colleague, not like a judge.</p></li>
+	</ul>
+
+	<p>Some enterprising companies have taken this even a step further.  They turned the coding test into a paid day of doing actual work, programming in pair with the interviewer.</p>
+
+	<p>I think we can go a step further yet.</p>
+
+	<p>But first let's step back and evaluate.</p>
+</section>
+
+
+<section>
+	<h2>Why is this so Complicated?</h2>
+
+	<p>Even with all the recent improvements to coding tests, horror stories persist.  I have seen organizations run diligent and realistic tests, yet still end up with mountains of spaghetti code.  I have also seen them turn away many great candidates, who would have certainly given them better code than what they got.</p>
+
+	<p>Testing coders <strong>seems like it should be easy</strong>, but as an industry <strong>we are still bad at it</strong>.</p>
+
+	<p>Why is that?</p>
+
+</section>
+
+<section>
+	<h2>Predicting is Hard</h2>
+	<p>Perhaps predicting a potential employee's future performance from a job interview is intrinsically very difficult.  Perhaps we are not all bad interviewers and bad interviewees; Perhaps making this sort of prediction from a first impression is just prohibitively difficult.</p>
+</section>
+
+<section>
+	<h2>Measuring is Easy</h2>
+	<p>And yet measuring coder performance is relatively easy:</p>
+
+	<section>
+		<h3>Peer Review</h3>
+		<p>Members of any programming team that has been together for a couple of weeks will know very well how everyone is doing.  Programmers know their colleagues' strengths and weaknesses.  And they may even be eager to discuss them if you ask.</p>
+		<p>And yet peer review is still very underutilized, perhaps for fear that it would negatively impact company culture.</p>
+		<p>But what is the alternative?  Not knowing who on your team is coding well?  Not helping the struggling coders improve?  Just leaving them to underperform indefinitely?  Do that for long enough, and your good coders will leave.</p>
+	</section>
+
+	<section>
+		<h3>Code Review</h3>
+		<p>With modern source control, you can discreetly review each individual programmer's contributions to the code base.</p>
+		<p>Of course "measuring" by just counting lines of code is trivial - and wrong.  But an experienced coder reviewing the contributions can point out problem areas, promote better code quality, etc.  This is not trivial, but it is well worth it.</p>
+		<p>And yet most organizations either have no code reviews, or they only pretend that they do, while in reality they just get their devs to quickly rubber stamp each other's work.  This is a tremendous missed opportunity.</p>
+	</section>
+</section>
+
+
+<section>
+	<h2>Agile works for this Type of Problem</h2>
+	<p>This would not be the first time our industry has struggled by insisting on <strong>predicting</strong> and planning instead of <strong>measuring</strong> and adapting.</p>
+
+	<section>
+		<h3>Agile worked for Project Management</h3>
+
+		<p>For decades software project management was limited to the waterfall model.  This methodology that does well at building new residential subdivisions, usually fails at writing software.</p>
+
+		<p>It took industry outsiders - <strong><a href="http://www.dupont.com/">DuPont</a></strong> - to show us the error of our ways.</p>
+
+		<p>They taught us that we were failing not because we weren't trying hard enough, but because the task was impossible.  They knew that unpredictable processes like discovering a new never-before-seen medication or writing a new never-before-seen piece of software need to be measured and adapted to, not predicted and planned.  They lit the way for agile software development.</p>
+
+		<p>DuPont may not be a software company, but they could teach us a thing or two about running a business.  They've been at it for 200 years.</p>
+
+	</section>
+
+	<section>
+		<h3>Agile can also work for Hiring</h3>
+
+		<p><q>"But! but! programs and programmers are two very different things!  There is no reason to believe that what works for managing one will work for hiring the other."</q></p>
+		<p>Except perhaps raw data.  We have come a very long way in improving our interviews, but are still having a very tough time trying to <em>predict</em> who will be a good hire.  Yet we know that it is possible to accurately <em>measure</em> performance of our coders with a little bit of effort.  So why not stop <em>predicting</em> and start <em>measuring</em>?</p>
+
+		<p><q>"But! but! we can't just hire a coder without testing his coding skills!"</q></p>
+		<p>Why not?  <strong><a href="http://www.goldmansachs.com/">Goldman Sachs</a></strong> does.</p>
+		<p>They have been hiring programmers without testing them for decades.  The experience described by <a href="http://www.jasq.org/just-another-scala-quant/inverting-binary-trees-considered-harmful">Just Another Scala Quant</a> matches mine.  The interview I had with Goldman Sachs in 2000 still stands out as the most pleasant of my entire career.  There was <strong>no skill test</strong>, just two friendly conversations: one with the manager, and one with a fellow developer.  And that was it.  They extended the offer.</p>
+
+		<p>Unlike the Scala Quant, I was young and dumb enough to choose a different offer, but had I gone with Goldman Sachs, it's not hard to imagine what would have followed.  They would have monitored and measured my performance, advising me what to improve.  If things really weren't working out, they would have let me go, perhaps even during the probationary period that so many companies have, but so few utilize.</p>
+
+		<p>And that's it.  It works just fine.  Zero effort expended on testing coding skills of job candidates.  Focus redirected to measuring and improving the performance of hires.</p>
+
+		<p>Goldman Sachs may not be a software company, but they can teach us a thing or two about running a business.  They've been at it for 150 years.</p>
+	</section>
+
+</section>
+
+<div class="endline">∴</div>
+
+<div class="tags">
+	<a href="#">programming</a><a href="#">interview</a><a href="#">agile</a>
+</div>
+
+</article>
+
+<details class="comments">
+	<summary>comments on Disqus</summary>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		// CONFIGURATION VARIABLES
+		var disqus_shortname = 'itturnsoutcom';
+		var disqus_url = 'https://itturnsout.com/interview-tests-considered-harmful/';
+		var disqus_identifier = 'interview-tests-considered-harmful';
+		// DON'T EDIT BELOW THIS LINE
+		(function () {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>How dare you browse without JavaScript?  No <a href="https://disqus.com/?ref_noscript" rel="nofollow">Disqus</a> comments for you.</noscript>
+</details>
+
+</div>
+
+</body>
+</html>
